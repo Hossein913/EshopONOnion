@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EShop.Data.Repository
 {   
-    public class CategoyRepository : ICategoryRepository
+    public class CategoryRepository : ICategoryRepository
     {
         private readonly EshopContext _context;
-        public CategoyRepository(EshopContext eshopContext)
+        public CategoryRepository(EshopContext eshopContext)
         {
             _context = eshopContext;
         }

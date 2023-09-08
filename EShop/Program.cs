@@ -1,5 +1,8 @@
 using EShop.Data;
+using EShop.Data.Repository;
 using EShop.Domain.Entity;
+using EShop.Domain.IRepositories;
+using EShop.Domain.IServices.CategoryService.Queries;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Routing.Tree;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +11,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//------Add Repositores
+builder.Services.AddScoped<ICartRepository,CartRepository>();
+builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
+builder.Services.AddScoped<ICustomerRepository,CustomerRepository>();
+builder.Services.AddScoped<IPictureRepository,PictureRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+//------Add Services
+builder.Services.AddScoped<ICategoryQueryService, CategoryQueryService>();
+
 
 builder.Services.AddDbContext<EshopContext>(option =>
 option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
