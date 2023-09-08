@@ -17,7 +17,6 @@ builder.Services.AddIdentity<User, Role>()
 .AddDefaultTokenProviders()
 .AddRoles<Role>();
 
-var app = builder.Build();
 builder.Services.Configure<IdentityOptions>(option =>
 {
     //UserSetting
@@ -53,6 +52,10 @@ builder.Services.ConfigureApplicationCookie(option =>
     option.AccessDeniedPath = "/Account/AccessDenied";
     option.SlidingExpiration = true;
 });
+
+
+var app = builder.Build();
+
 
 
 

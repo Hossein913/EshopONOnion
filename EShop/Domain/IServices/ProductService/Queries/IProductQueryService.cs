@@ -1,4 +1,4 @@
-﻿using EShop.Domain.DTOs.Product;
+﻿using EShop.Domain.DTOs.Products;
 using EShop.Domain.Entity;
 
 namespace EShop.Domain.IServices.ProductService.Queries

@@ -8,8 +8,7 @@ namespace EShop.Data;
 public partial class EshopContext : IdentityDbContext<User, Role, string>
 {
 
-    public EshopContext(DbContextOptions<EshopContext> options)
-        : base(options)
+    public EshopContext(DbContextOptions<EshopContext> options): base(options)
     {
     }
 
@@ -127,8 +126,8 @@ public partial class EshopContext : IdentityDbContext<User, Role, string>
         //        .HasConstraintName("FK_ProductCart_Product");
         //});
 
-        OnModelCreatingPartial(modelBuilder);
+        base.OnModelCreating(modelBuilder);
     }
 
-    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
 }

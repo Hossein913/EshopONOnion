@@ -1,5 +1,4 @@
-﻿using EShop.Domain.DTOs.Product;
-using EShop.Domain.Entity;
+﻿using EShop.Domain.DTOs.Products;
 
 namespace EShop.Domain.IServices.ProductService.Commands
 {
