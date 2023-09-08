@@ -1,0 +1,42 @@
+*Customer Use Case:
+EditProfile( Customer )
+PayByCustomerId( CustomerId )
+
+
+---------------------------------------------
+*Cart Use Case:
+DeleteCart( CustomerId - CartId )
+ReadByCartId( CartId )
+ReadPaiedCustomerId( CustomerId )
+
+---------------------------------------------
+*Admin Use Case:
+
+EditeProfile( Admin )
+Create
+---------------------------------------------
+
+*Product Use Case:
+CreateProduct( Product )
+DeleteProduct( ProductId )
+EditeProduct( Product )
+GetAllProducts ( )
+GetProductByCategoryId(CategoryId)
+SeachInProduct( string name )
+AddProductToCartByProductid (customerid - productid )
+DeleteProductFromCart( cartId - ProductId )
+---------------------------------------------
+
+
+*Category Use Case:
+CreateCategory( Category )
+EditeCategory( Category )
+DeleteCategory( CatrguryId )
+GetAllCategory( )
+
+
+
+
+
+
+
