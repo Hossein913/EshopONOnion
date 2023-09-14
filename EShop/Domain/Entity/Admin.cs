@@ -12,4 +12,6 @@ public partial class Admin
     public string? LastName { get; set; }
 
     public string? PersonalCode { get; set; }
+
+
 }

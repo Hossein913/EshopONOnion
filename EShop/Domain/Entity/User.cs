@@ -3,9 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EShop.Domain.Entity;
 
-public class User : IdentityUser
+public class User : IdentityUser<int>
 {
-    [Key]
-    public string Id { get; set; }
-    public string FullName { get; set; }
+
 }

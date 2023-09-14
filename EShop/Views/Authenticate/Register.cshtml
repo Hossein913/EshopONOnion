@@ -1,0 +1,56 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="col-md-6 card p-2">  
+        <form method="post">
+           <div asp-validation-summary="All" >
+               </div>
+           <div class=" form-row">
+               <div class="d-flex form-group mt-1">
+                   <label asp-for="FirstName" class="mx-1"></label>
+                   <input asp-for="FirstName" type="text" class="form-control" id="validationCustom01" placeholder="First Name">
+    
+                   <label asp-for="LastName" class="mx-1"></label>
+                   <input asp-for="LastName" type="text" class="form-control" id="validationCustom02" placeholder="Last Name">
+                </div>
+            <span asp-validation-for="FirstName" class="alert-danger"></span>
+            <span asp-validation-for="LastName" class="alert-danger"></span>
+           </div>
+            
+            <div class="d-flex mt-3 form-group">
+                <label asp-for="Email" class="mx-1"></label>
+                <input asp-for="Email" type="email" class="form-control" id="inputEmail4" placeholder="Email">
+            <span asp-validation-for="Email" class="alert-danger"></span>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group mt-2">
+                     <label asp-for="Password" class="mx-1"></label>
+                    <input asp-for="Password"  type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                </div>
+                <div class="form-group mt-2">
+                     <label asp-for="ConfirmPassword" class="mx-1"></label>
+                     <input asp-for="ConfirmPassword" type="password" class="form-control" id="inputPassword4" placeholder="ConfirmPassword">
+                </div>
+            <span asp-validation-for="Password" class="alert-danger"></span>
+            <span asp-validation-for="ConfirmPassword" class="alert-danger"></span>
+            </div>
+
+            <div class="form-group mt-2">
+                 <label asp-for="Address"></label>
+                 <input asp-for="Address"  type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+             </div>
+
+             <div class="form-group mt-2">
+              <label asp-for="IsAdmin"></label>
+                @Html.CheckBoxFor(r => r.IsAdmin)
+              </div>
+
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent mt-2">
+              <button type="submit" class="btn btn-outline-primary">Sign Up</button>
+              <a class="btn btn-outline-dark mt-auto" href="#">Product List</a>
+            </div>
+        </form>
+</div>

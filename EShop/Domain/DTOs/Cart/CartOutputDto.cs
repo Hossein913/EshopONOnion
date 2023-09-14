@@ -6,9 +6,7 @@ namespace EShop.Domain.DTOs.Cart
     {
         public int Id { get; set; }
 
-        public int? Quntity { get; set; }
-
-        public int CustomerId { get; set; }
+        public string CustomerId { get; set; }
 
         public List<Product> Products { get; set; } = new List<Product>();
     }

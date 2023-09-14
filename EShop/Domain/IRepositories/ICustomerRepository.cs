@@ -6,10 +6,10 @@ namespace EShop.Domain.IRepositories
 {
     public interface ICustomerRepository
     {
-        Task<Customer> Create(Customer customer);
-        Task Update(Customer customer);
+        Task<Customer> Create(CustomerAddDto customer);
+        Task Update(CustomerAddDto customer);
         Task Delete(int customerId);
         Task<Customer?> GetById(int customerId);
-        Task<List<Customer>> GetAll();
+        //Task<List<Customer>> GetAll();
     }
 }

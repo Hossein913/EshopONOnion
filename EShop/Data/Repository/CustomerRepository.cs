@@ -17,8 +17,16 @@ namespace EShop.Data.Repository
             _context = context;
         }
 
-        public async Task<Customer> Create(Customer customer)
+        public async Task<Customer> Create(CustomerAddDto customerDto)
         {
+            Customer customer = new Customer()
+            {
+                Id = customerDto.Id,
+                Name = customerDto.Name,
+                LastName = customerDto.LastName,
+                Address = customerDto.Address,
+                Carts = new List<Cart>()
+            };
             await _context.Customers.AddAsync(customer);
             await _context.SaveChangesAsync();
             return customer;
@@ -32,11 +40,11 @@ namespace EShop.Data.Repository
 
         }
 
-        public async Task<List<Customer>> GetAll()
-        {
-            var customer = _context.Customers.AsNoTracking().Include(c => c.IdNavigation);
-            return customer.ToList();
-        }
+        //public async Task<List<Customer>> GetAll()
+        //{
+                  //var customer = _context.Customers.AsNoTracking().Include(c => c.IdNavigation);
+                 //return customer.ToList();
+        //}
 
         public async Task<Customer?> GetById(int customerId)
         {
@@ -44,7 +52,7 @@ namespace EShop.Data.Repository
             return product;
         }
 
-        public async Task Update(Customer customer)
+        public async Task Update(CustomerAddDto customer)
         {
             //var entity = _context.Customers.Find(customer.Id);
             //entity.Name = customer.Name;

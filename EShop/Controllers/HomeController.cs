@@ -1,5 +1,6 @@
 ﻿using EShop.Domain.IServices.CategoryService.Queries;
 using EShop.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -16,7 +17,7 @@ namespace EShop.Controllers
             _logger = logger;
             _service = service;
         }
-
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var categories = await _service.GetAllCategory();

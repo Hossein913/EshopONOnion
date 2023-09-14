@@ -9,16 +9,12 @@
   <ItemGroup>
     <Compile Remove="Application\**" />
     <Compile Remove="Data\Repositories\**" />
-    <Compile Remove="Data\Services\NewFolder\**" />
     <Content Remove="Application\**" />
     <Content Remove="Data\Repositories\**" />
-    <Content Remove="Data\Services\NewFolder\**" />
     <EmbeddedResource Remove="Application\**" />
     <EmbeddedResource Remove="Data\Repositories\**" />
-    <EmbeddedResource Remove="Data\Services\NewFolder\**" />
     <None Remove="Application\**" />
     <None Remove="Data\Repositories\**" />
-    <None Remove="Data\Services\NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>
