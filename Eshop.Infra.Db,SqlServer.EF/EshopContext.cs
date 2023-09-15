@@ -9,10 +9,14 @@ namespace Eshop.Infra.Db_SqlServer.EF
 {
     public class EshopContext : IdentityDbContext<User, Role, int>
     {
+        //public EshopContext(DbContextOptions<EshopContext> options) : base(options)
+        //{
+        //}
 
-        public EshopContext(DbContextOptions<EshopContext> options) : base(options)
-        {
-        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseSqlServer(" Server=.;Database=Eshop-onion;integrated security=sspi;TrustServerCertificate=True;MultipleActiveResultSets=true ");
+
+
 
         public DbSet<Admin> Admins { get; set; }
 

@@ -1,6 +1,7 @@
 ﻿
 
 using Eshop.Domain.core.DataAccess.EfRipository;
+using Eshop.Domain.core.Dtos.Category;
 using EShop.Domain.core.IServices.CategoryService.Queries;
 
 namespace EShop.Domain.Services.CategoryService.Queries
@@ -14,17 +15,18 @@ namespace EShop.Domain.Services.CategoryService.Queries
             this.repository = repository;
         }
 
-        public async Task<List<CategoryViewModel>> GetAllCategory()
+        public async Task<List<CategoryOutputDto>> GetAllCategory()
         {
             var categores = await repository.GetAll();
 
-            //List<CategoryViewModel> categoryOutputDto = categores.Select( x => new CategoryViewModel() { 
-            //    Id= x.Id,
-            //    Name= x.Name,
-            //    Description= x.Description
-            //}).ToList();
+            List<CategoryOutputDto> categoryOutputDto = categores.Select(x => new CategoryOutputDto()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Description = x.Description
+            }).ToList();
 
-             throw new NotImplementedException();
+            return categoryOutputDto;
         }
     }
 }

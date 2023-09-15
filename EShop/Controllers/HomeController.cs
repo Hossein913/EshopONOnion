@@ -1,4 +1,5 @@
 ﻿using EShop.Domain.core.IServices.CategoryService.Queries;
+using EShop.ViewModels.Category;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -20,7 +21,15 @@ namespace EShop.Controllers
         public async Task<IActionResult> Index()
         {
             var categories = await _service.GetAllCategory();
-            return View(categories);
+            List<CategoryViewModel> categoryView = categories.Select(x => new CategoryViewModel {
+                Id = x.Id,
+                Name = x.Name,
+                Description = x.Description
+            }).ToList();
+
+            return View(categoryView);
+
+
         }
 
         public IActionResult Privacy()

@@ -35,8 +35,10 @@ builder.Services.AddScoped<ICategoryQueryService, CategoryQueryService>();
 builder.Services.AddScoped<ICustomerCommandService, CustomerCommandService>();
 
 //-- DbContext
-builder.Services.AddDbContext<EshopContext>(option =>
-option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+//builder.Services.AddDbContext<EshopContext>(option =>
+//option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddDbContext<EshopContext>();
 
 //-- Identity
 builder.Services.AddIdentity<User,Role>()

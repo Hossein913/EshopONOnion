@@ -16,15 +16,14 @@ namespace Eshop
 {
     public class AuthenticateController : Controller
     {
-        protected readonly IAuthenticateService authenticateService;
+
         protected readonly IUserManagerRepository userRepository;
         protected readonly IAdminRepository adminRepository;
         protected readonly  ICustomerRepository customerRepository;
         protected readonly SignInManager<User> signInManager;
         protected readonly UserManager<User> userManager;
-        public AuthenticateController(IAuthenticateService authenticationServices, SignInManager<User> signInManager, IUserManagerRepository userRepository, IAdminRepository adminRepository, UserManager<User> userManager)
+        public AuthenticateController( SignInManager<User> signInManager, IUserManagerRepository userRepository, IAdminRepository adminRepository, UserManager<User> userManager)
         {
-            authenticateService = authenticationServices;
             this.signInManager = signInManager;
             this.userRepository = userRepository;
             this.adminRepository = adminRepository;

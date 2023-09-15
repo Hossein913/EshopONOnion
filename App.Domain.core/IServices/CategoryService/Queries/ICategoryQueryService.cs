@@ -1,9 +1,11 @@
 ﻿
 
+using Eshop.Domain.core.Dtos.Category;
+
 namespace EShop.Domain.core.IServices.CategoryService.Queries
 {
     public interface ICategoryQueryService
     {
-        Task<List<CategoryViewModel>> GetAllCategory();
+        Task<List<CategoryOutputDto>> GetAllCategory();
     }
 }
