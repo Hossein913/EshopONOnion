@@ -34,9 +34,9 @@ builder.Services.AddScoped<ICategoryQueryService, CategoryQueryService>();
 //builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
 builder.Services.AddScoped<ICustomerCommandService, CustomerCommandService>();
 
-//-- DbContext
-//builder.Services.AddDbContext<EshopContext>(option =>
-//option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+//--DbContext
+builder.Services.AddDbContext<EshopContext>(option =>
+option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddDbContext<EshopContext>();
 
@@ -113,6 +113,6 @@ pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "Admin/{controller=Admin}/{action=Index}/{id?}");
 
 app.Run();
