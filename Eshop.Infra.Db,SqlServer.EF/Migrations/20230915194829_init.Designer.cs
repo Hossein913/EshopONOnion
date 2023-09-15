@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eshop.Infra.Db_SqlServer.EF.Migrations
 {
     [DbContext(typeof(EshopContext))]
-    [Migration("20230915134812_Init")]
-    partial class Init
+    [Migration("20230915194829_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

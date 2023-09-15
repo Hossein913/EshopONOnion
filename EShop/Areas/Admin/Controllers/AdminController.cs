@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EShop.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class adminController : Controller
+    public class AdminController : Controller
     {
         [AllowAnonymous]
         public ActionResult Index()
