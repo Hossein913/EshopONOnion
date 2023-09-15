@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\App.Domain.core\Eshop.Domain.core.csproj" />
+    <ProjectReference Include="..\Eshop.Infra.Data.Repos.Dapper\Eshop.Infra.Data.Repos.Ef.csproj" />
+  </ItemGroup>
+
+</Project>

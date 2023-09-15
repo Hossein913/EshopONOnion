@@ -1,25 +1,34 @@
-﻿using EShop.Data;
-using EShop.Domain.DTOs.Authenticate;
-using EShop.Domain.Entity;
-using EShop.Domain.IServices.Authenticate;
+﻿using Eshop.Domain.core.DataAccess.EfRipository;
+using Eshop.Domain.core.Dtos.Admin;
+using Eshop.Domain.core.Dtos.Authenticate;
+using Eshop.Domain.core.Dtos.Customer;
+using Eshop.Domain.core.Entities;
+using Eshop.Infra.Data.Repos.Ef;
+using EShop.Domain.core.IServices.Authenticate;
+using EShop.ViewModels.Authenticate;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using ProductManager_quiz_.Models.ViewModels;
 using System.Threading;
 
-namespace ProductManager_quiz_.Controllers
+namespace Eshop
 {
     public class AuthenticateController : Controller
     {
         protected readonly IAuthenticateService authenticateService;
+        protected readonly IUserManagerRepository userRepository;
+        protected readonly IAdminRepository adminRepository;
+        protected readonly  ICustomerRepository customerRepository;
         protected readonly SignInManager<User> signInManager;
-
-        public AuthenticateController(IAuthenticateService authenticationServices,SignInManager<User> signInManager)
+        protected readonly UserManager<User> userManager;
+        public AuthenticateController(IAuthenticateService authenticationServices, SignInManager<User> signInManager, IUserManagerRepository userRepository, IAdminRepository adminRepository, UserManager<User> userManager)
         {
             authenticateService = authenticationServices;
             this.signInManager = signInManager;
+            this.userRepository = userRepository;
+            this.adminRepository = adminRepository;
+            this.userManager = userManager;
         }
 
 
@@ -35,35 +44,63 @@ namespace ProductManager_quiz_.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel registerModel,CancellationToken cancellationToken)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+                return View(registerModel);
+
+            try
             {
 
-                try
-                {
-
-                    var result = await authenticateService.RegisterService(registerModel, cancellationToken);
-
-                    if (result.Succeeded)
+                    UserRegisterDto registerUser = new UserRegisterDto
                     {
+                        Email = registerModel.Email,
+                        Password = registerModel.Password,
+                        IsAdmin = registerModel.IsAdmin
+                    };
+
+                    var UserId = await userRepository.Create(registerUser, cancellationToken);
+
+
+                    if (UserId != 0 && registerModel.IsAdmin)
+                    {
+
+                        AdminAddDto adminDto = new AdminAddDto
+                        {
+                            Id = UserId,
+                            FirstName = registerModel.FirstName,
+                            LastName = registerModel.LastName,
+                            Address = registerModel.Address
+                        };
+                        var Result = await adminRepository.Create(adminDto);
                         return RedirectToAction("Index", "Home");
+                    }
+                    else if (UserId != 0 && !registerModel.IsAdmin)
+                    {
+                        CustomerAddDto customerDto = new CustomerAddDto
+                        {
+                            Id = UserId,
+                            Name = registerModel.FirstName,
+                            LastName = registerModel.LastName,
+                            Address = registerModel.Address
+                        };
+                        var Result = await customerRepository.Create(customerDto);
+                         return RedirectToAction("Index", "Home");
+
                     }
                     else
                     {
-                        foreach (var err in result.Errors)
-                        {
-                            ModelState.AddModelError("", err.Description);
-                        }
-                        return View(registerModel);
+                        return View();
                     }
 
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", ex.Message);
-                    return View();
-                }
+                     
+                    
             }
-            else { return View(registerModel); }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View();
+            }
+            
+
         }
 
         [AllowAnonymous]
@@ -87,20 +124,30 @@ namespace ProductManager_quiz_.Controllers
                 IsPersistent = LoginModel.RememberMe
             };
 
-            var result = await authenticateService.LoginService(userLogin, cancellationToken);
+            var result = await userRepository.Login(userLogin, cancellationToken);
+
+            IList<string> roles = null;
+            if (result.Succeeded)
+            {
+                var user = await userManager.FindByNameAsync(userLogin.Email);
+                roles = await userManager.GetRolesAsync(user);
+            }
 
 
             //var result = await authenticate.Login(LoginModel);
 
-            //if (result.Succeeded)
-            //{
-            //    return RedirectToAction("index", "Home");
-            //}
-            //else
-            //{
-            //    ModelState.AddModelError("", "Invalid SignIn attempt");
-            //    return View(LoginModel);
-            //}
+            if (result != null && roles.Contains("Admin"))
+            {
+                return RedirectToAction("index", "Home", new { area = "Admin"});
+            }
+            else if (result != null && roles.Contains("Customer"))
+            {
+                return RedirectToAction("index", "Home");
+            }
+            else 
+            { 
+               return View(LoginModel);
+            }
 
         }
 

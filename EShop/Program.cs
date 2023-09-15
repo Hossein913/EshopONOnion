@@ -1,11 +1,14 @@
-using EShop.Data;
-using EShop.Data.Repository;
-using EShop.Data.Services.Authenticate;
-using EShop.Domain.Entity;
+
+using Eshop.Domain.core.DataAccess.EfRipository;
+using Eshop.Domain.core.Entities;
+using Eshop.Infra.Data.Repos.Ef;
+using Eshop.Infra.Db_SqlServer.EF;
+using EShop.Domain.core.IServices.Authenticate;
+using EShop.Domain.core.IServices.CategoryService.Queries;
+using EShop.Domain.core.IServices.CustomerService.Command;
 using EShop.Domain.IRepositories;
-using EShop.Domain.IServices.Authenticate;
-using EShop.Domain.IServices.CategoryService.Queries;
-using EShop.Domain.IServices.CustomerService.Command;
+using EShop.Domain.Services.CategoryService.Queries;
+using EShop.Domain.Services.CustomerService.Command;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -28,7 +31,7 @@ builder.Services.AddScoped<IUserManagerRepository, UserManagerRepository>();
 
 //------Add Services
 builder.Services.AddScoped<ICategoryQueryService, CategoryQueryService>();
-builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
+//builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
 builder.Services.AddScoped<ICustomerCommandService, CustomerCommandService>();
 
 //-- DbContext
@@ -96,7 +99,6 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
 }
 app.UseStaticFiles();
-
 app.UseRouting();
 
 app.UseAuthentication();

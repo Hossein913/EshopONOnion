@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProductManager_quiz_.Models.ViewModels
+namespace EShop.ViewModels.Authenticate
 {
     public class LoginViewModel
     {
