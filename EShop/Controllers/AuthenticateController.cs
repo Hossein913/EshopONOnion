@@ -1,4 +1,5 @@
 ﻿using EShop.Data;
+using EShop.Domain.DTOs.Authenticate;
 using EShop.Domain.Entity;
 using EShop.Domain.IServices.Authenticate;
 using Microsoft.AspNetCore.Authentication;
@@ -74,26 +75,33 @@ namespace ProductManager_quiz_.Controllers
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel LoginModel)
+        public async Task<ActionResult> Login(LoginViewModel LoginModel, CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
                 return View(LoginModel);
 
-            var result = authenticateService.LoginService(LoginModel), cancellationToken)
-
-
-
-            var result = await authenticate.LogIn(LoginModel);
-
-            if (result.Succeeded)
+            UserLoginDto userLogin = new UserLoginDto
             {
-                return RedirectToAction("index", "Home");
-            }
-            else
-            {
-                ModelState.AddModelError("", "Invalid SignIn attempt");
-                return View(LoginModel);
-            }
+                Email = LoginModel.Email,
+                Password = LoginModel.Password,
+                IsPersistent = LoginModel.RememberMe
+            };
+
+            var result = await authenticateService.LoginService(userLogin, cancellationToken);
+
+
+            //var result = await authenticate.Login(LoginModel);
+
+            //if (result.Succeeded)
+            //{
+            //    return RedirectToAction("index", "Home");
+            //}
+            //else
+            //{
+            //    ModelState.AddModelError("", "Invalid SignIn attempt");
+            //    return View(LoginModel);
+            //}
+
         }
 
 

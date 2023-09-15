@@ -82,14 +82,9 @@ namespace EShop.Data.Services.Authenticate
 
         }
 
-        public async Task<SignInResult?> LoginService(LoginViewModel LoginModel, CancellationToken cancellationToken)
+        public async Task<SignInResult?> LoginService(UserLoginDto userLogin, CancellationToken cancellationToken)
         {
-            UserLoginDto userLogin = new UserLoginDto
-            {
-                Email = LoginModel.Email,
-                Password = LoginModel.Password,
-                IsPersistent = LoginModel.RememberMe
-            };
+
             var result = await userRepository.Login(userLogin, cancellationToken);
 
             if (result.Succeeded)

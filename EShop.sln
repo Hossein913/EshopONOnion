@@ -10,6 +10,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documnets", "Documnets", "{
 		EShop\Documents\Use Case.txt = EShop\Documents\Use Case.txt
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{4CB6FC29-A9FF-4D8F-ACD6-0CA451587EA1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Domain", "01 Domain", "{B62992D1-0067-4690-A1BE-6029024720F6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 Infrastructres", "02 Infrastructres", "{D19A56AD-96E9-477D-9455-FBFE7A9D9969}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 EndPoints", "03 EndPoints", "{F1EFC3D8-41E4-4DC1-BECC-3B79AB9B4109}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +31,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0430E426-84D7-4E86-A96B-CD87566E09D4} = {F1EFC3D8-41E4-4DC1-BECC-3B79AB9B4109}
+		{B62992D1-0067-4690-A1BE-6029024720F6} = {4CB6FC29-A9FF-4D8F-ACD6-0CA451587EA1}
+		{D19A56AD-96E9-477D-9455-FBFE7A9D9969} = {4CB6FC29-A9FF-4D8F-ACD6-0CA451587EA1}
+		{F1EFC3D8-41E4-4DC1-BECC-3B79AB9B4109} = {4CB6FC29-A9FF-4D8F-ACD6-0CA451587EA1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {82B19488-9AF7-4899-9EB9-6744258423D4}
