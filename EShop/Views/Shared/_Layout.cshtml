@@ -6,6 +6,9 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Shop Homepage - Start Bootstrap Template</title>
+
+    <script src="js/all.js" crossorigin="anonymous"></script>
+
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap icons-->
@@ -30,18 +33,36 @@
                     <li class="nav-item"><a class="nav-link active" aria-current="page" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
                 </ul>
+                <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                    <li class="nav-item">
+                        <button class="btn btn-outline-dark" type="submit">
+                            <i class="bi-cart-fill me-1"></i>
+                            Cart
+                            <span class="badge bg-dark text-white ms-1 rounded-pill"> 0 </span>
+                        </button>
+                    </li>
 
-                <form class="d-flex">
-                    <div class="nav-item me-3"><a class="nav-link active text-primary" aria-current="page" asp-controller="Authenticate" asp-action="Login"><i class="bi-person-down"> Sign in</i></a></div>
-                    <div class="nav-item me-3"><a class="nav-link active text-danger" aria-current="page" asp-controller="Authenticate" asp-action="Register"><i class="bi-person-add"> Sign up</i></a></div>
-                    <button class="btn btn-outline-dark" type="submit">
-                        <i class="bi-cart-fill me-1"></i>
-                        Cart
-                        <span class="badge bg-dark text-white ms-1 rounded-pill"> 0 </span>
-                    </button>
-                </form>
+                <!-- Navbar Account-->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="dropdown-item" asp-controller="Authenticate" asp-action="Login">
+                                    Sign in
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li>
+                                <a class="dropdown-item" asp-controller="Authenticate" asp-action="Register">
+                                    Sign up
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
+
     </nav>
     <!-- Header-->
     @if (ViewData["Title"] == "Home Page")
