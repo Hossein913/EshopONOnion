@@ -28,9 +28,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Db", "Db", "{A6E45FFA-8F19-
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prividers", "Prividers", "{3FBD0D36-3A7A-4288-9833-32D0403112A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eshop.Infra.Db.SqlServer.EF", "Eshop.Infra.Db,SqlServer.EF\Eshop.Infra.Db.SqlServer.EF.csproj", "{999EB5C1-4098-4973-8CFF-A0BC8B6A9184}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eshop.Infra.Db.SqlServer.EF", "Eshop.Infra.Db,SqlServer.EF\Eshop.Infra.Db.SqlServer.EF.csproj", "{999EB5C1-4098-4973-8CFF-A0BC8B6A9184}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eshop.Infra.Data.Repos.Ef", "Eshop.Infra.Data.Repos.Dapper\Eshop.Infra.Data.Repos.Ef.csproj", "{18F2BD66-156A-4C0F-B131-18F683C75224}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eshop.Infra.Data.Repos.Ef", "Eshop.Infra.Data.Repos.Dapper\Eshop.Infra.Data.Repos.Ef.csproj", "{18F2BD66-156A-4C0F-B131-18F683C75224}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShop.Domain.AppServices", "EShop.Domain.AppServices\EShop.Domain.AppServices.csproj", "{D9F5C42E-34D7-4A98-819A-035DC30D0452}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +60,10 @@ Global
 		{18F2BD66-156A-4C0F-B131-18F683C75224}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18F2BD66-156A-4C0F-B131-18F683C75224}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18F2BD66-156A-4C0F-B131-18F683C75224}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9F5C42E-34D7-4A98-819A-035DC30D0452}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9F5C42E-34D7-4A98-819A-035DC30D0452}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9F5C42E-34D7-4A98-819A-035DC30D0452}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9F5C42E-34D7-4A98-819A-035DC30D0452}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{3FBD0D36-3A7A-4288-9833-32D0403112A0} = {D19A56AD-96E9-477D-9455-FBFE7A9D9969}
 		{999EB5C1-4098-4973-8CFF-A0BC8B6A9184} = {A6E45FFA-8F19-4DFA-9117-47E638BD0976}
 		{18F2BD66-156A-4C0F-B131-18F683C75224} = {4C878326-2644-47F4-9AED-44714D5829A2}
+		{D9F5C42E-34D7-4A98-819A-035DC30D0452} = {B62992D1-0067-4690-A1BE-6029024720F6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {82B19488-9AF7-4899-9EB9-6744258423D4}

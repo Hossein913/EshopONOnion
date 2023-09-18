@@ -3,7 +3,7 @@
 
 namespace Eshop.Domain.core.Entities;
 
-public class User : IdentityUser<int>
+public class AppUser : IdentityUser<int>
 {
 
 }

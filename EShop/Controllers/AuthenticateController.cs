@@ -19,15 +19,16 @@ namespace Eshop
 
         protected readonly IUserManagerRepository userRepository;
         protected readonly IAdminRepository adminRepository;
-        protected readonly  ICustomerRepository customerRepository;
-        protected readonly SignInManager<User> signInManager;
-        protected readonly UserManager<User> userManager;
-        public AuthenticateController( SignInManager<User> signInManager, IUserManagerRepository userRepository, IAdminRepository adminRepository, UserManager<User> userManager)
+        protected readonly ICustomerRepository customerRepository;
+        protected readonly SignInManager<AppUser> signInManager;
+        protected readonly UserManager<AppUser> userManager;
+        public AuthenticateController(SignInManager<AppUser> signInManager, IUserManagerRepository userRepository, IAdminRepository adminRepository, UserManager<AppUser> userManager, ICustomerRepository customerRepository)
         {
             this.signInManager = signInManager;
             this.userRepository = userRepository;
             this.adminRepository = adminRepository;
             this.userManager = userManager;
+            this.customerRepository = customerRepository;
         }
 
 
@@ -137,7 +138,7 @@ namespace Eshop
 
             if (result != null && roles.Contains("Admin"))
             {
-                return RedirectToAction("index", "Home", new { area = "Admin"});
+                return RedirectToAction("index", "Panel", new { area = "Admin"});
             }
             else if (result != null && roles.Contains("Customer"))
             {

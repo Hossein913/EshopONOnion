@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Eshop.Infra.Db_SqlServer.EF
 {
-    public class EshopContext : IdentityDbContext<User, Role, int>
+    public class EshopContext : IdentityDbContext<AppUser, Role, int>
     {
         public EshopContext(DbContextOptions<EshopContext> options) : base(options)
         {

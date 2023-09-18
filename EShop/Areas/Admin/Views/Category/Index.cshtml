@@ -1,18 +1,38 @@
-﻿<h1 class="mt-4">Static Navigation</h1>
-<ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-    <li class="breadcrumb-item active">Static Navigation</li>
-</ol>
-<div class="card mb-4">
-    <div class="card-body">
-        <p class="mb-0">
-            This page is an example of using static navigation. By removing the
-            <code>.sb-nav-fixed</code>
-            class from the
-            <code>body</code>
-            , the top navigation and side navigation will become static on scroll. Scroll down this page to see an example.
-        </p>
-    </div>
-</div>
-<div style="height: 100vh"></div>
-<div class="card mb-4"><div class="card-body">When scrolling, the navigation stays at the top of the page. This is the end of the static navigation demo.</div></div>
+﻿@model List<CategoryViewModel>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Employee Name</th>
+            <th scope="col">Disingnaton</th>
+            <th scope="col">Address</th>
+            <th scope="col">Created On</th>
+            <th></th>
+        </tr>
+
+    </thead>
+    <tbody>
+       @{
+            int count = 1;
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td width="20%">@count</td>
+                <td width="20%">@item.Name</td>
+                <td width="20%">@item.Description</td>
+                <td width="25%">@item.Photo</td>
+                <td>
+                    <div class=" w-60 btn-group" role="group">
+                        <a class="btn btn-sm btn-primary" asp-controller="Employee" asp-action="Edite" asp-route-id="@item.Id"><i class=" bi bi-pencil-square"></i>Edite</a>&nbsp;
+                        <a class="btn btn-sm btn-danger" asp-controller="Employee" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash-fill"></i>Delete</a>
+                    </div>
+
+                </td>
+
+            </tr>
+            count++;
+        }
+
+    </tbody>
+</table>

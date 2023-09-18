@@ -4,7 +4,7 @@ using Eshop.Domain.core.Entities;
 
 namespace Eshop.Domain.core.Dtos.Category
 {
-    public class CategoryOutputDto
+    public class CategoryWithProductOutputDto
     {
         public int Id { get; set; }
 
@@ -12,7 +12,7 @@ namespace Eshop.Domain.core.Dtos.Category
 
         public string? Description { get; set; }
 
-        public string? Image { get; set; }
+        public IList<Product>? Products { get; set; }
     }
 }
 

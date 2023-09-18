@@ -1,12 +1,17 @@
 
+using Eshop.Domain.core.AppService;
 using Eshop.Domain.core.DataAccess.EfRipository;
 using Eshop.Domain.core.Entities;
 using Eshop.Infra.Data.Repos.Ef;
 using Eshop.Infra.Db_SqlServer.EF;
+using EShop.Domain.AppServices.CategoryAppServce;
+using EShop.Domain.AppServices.ProductAppService;
 using EShop.Domain.core.IServices.Authenticate;
+using EShop.Domain.core.IServices.CategoryService.Command;
 using EShop.Domain.core.IServices.CategoryService.Queries;
 using EShop.Domain.core.IServices.CustomerService.Command;
 using EShop.Domain.IRepositories;
+using EShop.Domain.Services.CategoryService.Command;
 using EShop.Domain.Services.CategoryService.Queries;
 using EShop.Domain.Services.CustomerService.Command;
 using Microsoft.AspNetCore.Authorization;
@@ -22,26 +27,35 @@ builder.Services.AddControllersWithViews();
 
 //------Add Repositores
 builder.Services.AddScoped<ICartRepository,CartRepository>();
-builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
-builder.Services.AddScoped<ICustomerRepository,CustomerRepository>();
+builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 builder.Services.AddScoped<IPictureRepository,PictureRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+builder.Services.AddScoped<ICustomerRepository,CustomerRepository>();
+builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
 builder.Services.AddScoped<IUserManagerRepository, UserManagerRepository>();
 
 //------Add Services
 builder.Services.AddScoped<ICategoryQueryService, CategoryQueryService>();
 //builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
+builder.Services.AddScoped<ICategoryQueryService, CategoryQueryService>();
 builder.Services.AddScoped<ICustomerCommandService, CustomerCommandService>();
+builder.Services.AddScoped<ICategoryCommandService , CategoryCommandService>();
+
+
+//------Add AppServices
+builder.Services.AddScoped<IProductAppservices, ProductAppServices>();
+builder.Services.AddScoped<ICategoriAppServices, CategoryAppServices>();
+
 
 //--DbContext
 builder.Services.AddDbContext<EshopContext>(option =>
 option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDbContext<EshopContext>();
+
+//builder.Services.AddDbContext<EshopContext>();
 
 //-- Identity
-builder.Services.AddIdentity<User,Role>()
+builder.Services.AddIdentity<AppUser,Role>()
 .AddEntityFrameworkStores<EshopContext>()
 .AddRoles<Role>();
 
@@ -60,8 +74,8 @@ builder.Services.Configure<IdentityOptions>(option =>
     option.Password.RequiredUniqueChars = 1;
 
     //Lokout Setting
-    option.Lockout.MaxFailedAccessAttempts = 3;
-    option.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMilliseconds(10);
+    //option.Lockout.MaxFailedAccessAttempts = 3;
+    //option.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMilliseconds(10);
 
     //SignIn Setting
     option.SignIn.RequireConfirmedAccount = false;
@@ -105,20 +119,19 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllerRoute(
 name: "Admin",
 pattern: "{area:exists}/{controller=Panel}/{action=Index}/{id?}"
 );
 
-//-------- for Area as default--------////
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{area=Admin}/{controller=Panel}/{action=Index}/{id?}");
-
-
+//-------- Area as default Route--------////
 //app.MapControllerRoute(
 //    name: "default",
-//    pattern: "/{controller=Home}/{action=Index}/{id?}");
+//    pattern: "{area=Admin}/{controller=Panel}/{action=Index}/{id?}");
+
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

@@ -12,5 +12,7 @@ public partial class Category
 
     public bool IsDeleted { get; set; } = false;
 
+    public Picture? Picture { get; set; }
+
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 }

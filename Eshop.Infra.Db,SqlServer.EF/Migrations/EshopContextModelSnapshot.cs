@@ -82,6 +82,9 @@ namespace Eshop.Infra.Db_SqlServer.EF.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Photo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Categories");

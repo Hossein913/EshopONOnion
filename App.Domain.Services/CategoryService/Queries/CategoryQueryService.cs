@@ -23,7 +23,8 @@ namespace EShop.Domain.Services.CategoryService.Queries
             {
                 Id = x.Id,
                 Name = x.Name,
-                Description = x.Description
+                Description = x.Description,
+                Image = x.Photo
             }).ToList();
 
             return categoryOutputDto;

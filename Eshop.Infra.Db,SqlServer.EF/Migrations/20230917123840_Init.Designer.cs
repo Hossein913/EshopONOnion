@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eshop.Infra.Db_SqlServer.EF.Migrations
 {
     [DbContext(typeof(EshopContext))]
-    [Migration("20230915194829_init")]
-    partial class init
+    [Migration("20230917123840_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -83,6 +83,9 @@ namespace Eshop.Infra.Db_SqlServer.EF.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Photo")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

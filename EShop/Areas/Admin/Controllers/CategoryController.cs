@@ -1,50 +1,96 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Eshop.Domain.core.AppService;
+using Eshop.Domain.core.Dtos.Category;
+using Eshop.Domain.core.Entities;
+using Eshop.Domain.core.IServices.FileService;
+using EShop.Domain.AppServices.CategoryAppServce;
+using EShop.Domain.core.IServices.CategoryService.Command;
+using EShop.Domain.core.IServices.CategoryService.Queries;
+using EShop.ViewModels.Category;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EShop.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+    [AllowAnonymous]
     public class CategoryController : Controller
     {
-        // GET: CategoryController
-        public ActionResult Index()
+        protected readonly ICategoryQueryService _categoryQueryService;
+        protected readonly ICategoriAppServices _categoriAppServices;
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        public CategoryController(
+            ICategoryQueryService categoryQueryService,
+            ICategoryCommandService categoryCommandService,
+            IWebHostEnvironment hostingEnvironment,
+            ICategoriAppServices categoriAppServices)
         {
-            return View();
+            _categoryQueryService = categoryQueryService;
+            _categoriAppServices = categoriAppServices;
+            _hostingEnvironment = hostingEnvironment;
+
         }
 
-        // GET: CategoryController/Details/5
+
+        public async  Task<ActionResult> Index()
+        {
+            var categories = await _categoryQueryService.GetAllCategory();
+            List<CategoryViewModel> categoryList = categories.Select(x => new CategoryViewModel
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Description = x.Description,
+                Photo = x.Image,
+            }).ToList();
+            return View(categoryList);
+        }
+
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: CategoryController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: CategoryController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(CategoryViewModel Model)
         {
-            try
+            if(!ModelState.IsValid)
+                return  View(Model);
+
+            if (Model.PhotoFile != null && Model.PhotoFile.Length > 0)
             {
-                return RedirectToAction(nameof(Index));
+                var wwwrootPath = _hostingEnvironment.WebRootPath;
+                var uploadPath = Path.Combine(wwwrootPath, "uploads");
+
+                CategoryAddDto categoryAddDto = new CategoryAddDto
+                {
+                     Name = Model.Name,
+                     Description = Model.Description
+
+                };
+
+                await _categoriAppServices.CreateCategory(categoryAddDto, Model.PhotoFile, uploadPath);
+                return Ok();
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(Model);
         }
 
-        // GET: CategoryController/Edit/5
+    }
+
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: CategoryController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -59,13 +105,11 @@ namespace EShop.Areas.Admin.Controllers
             }
         }
 
-        // GET: CategoryController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: CategoryController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

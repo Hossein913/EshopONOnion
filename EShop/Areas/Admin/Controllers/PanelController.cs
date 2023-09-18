@@ -5,9 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace EShop.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [AllowAnonymous]
     public class PanelController : Controller
     {
-        [AllowAnonymous]
+        
         public ActionResult Index()
         {
             return View();
