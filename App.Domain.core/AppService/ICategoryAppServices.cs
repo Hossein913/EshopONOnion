@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Eshop.Domain.core.AppService
 {
-    public interface ICategoriAppServices
+    public interface ICategoryAppServices
     {
         Task CreateCategory(CategoryAddDto categoryAddDto, IFormFile PhotFile, string UploadPath);
         Task EditeCategory(CategoryEditDto categoryEditDto);

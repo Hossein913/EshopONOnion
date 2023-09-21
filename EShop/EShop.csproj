@@ -8,13 +8,9 @@
 
   <ItemGroup>
     <Compile Remove="Application\**" />
-    <Compile Remove="Data\Repositories\**" />
     <Content Remove="Application\**" />
-    <Content Remove="Data\Repositories\**" />
     <EmbeddedResource Remove="Application\**" />
-    <EmbeddedResource Remove="Data\Repositories\**" />
     <None Remove="Application\**" />
-    <None Remove="Data\Repositories\**" />
   </ItemGroup>
 
   <ItemGroup>

@@ -75,7 +75,6 @@ namespace Eshop.Infra.Db_SqlServer.EF.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Photo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -256,12 +255,18 @@ namespace Eshop.Infra.Db_SqlServer.EF.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    LinsAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProductId = table.Column<int>(type: "int", nullable: true)
+                    PictureLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductId = table.Column<int>(type: "int", nullable: true),
+                    CategoriId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pictures", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Pictures_Categories_CategoriId",
+                        column: x => x.CategoriId,
+                        principalTable: "Categories",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Pictures_Products_ProductId",
                         column: x => x.ProductId,
@@ -350,6 +355,13 @@ namespace Eshop.Infra.Db_SqlServer.EF.Migrations
                 table: "Order",
                 column: "ProductId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pictures_CategoriId",
+                table: "Pictures",
+                column: "CategoriId",
+                unique: true,
+                filter: "[CategoriId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pictures_ProductId",

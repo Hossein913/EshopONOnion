@@ -24,7 +24,8 @@ namespace EShop.Controllers
             List<CategoryViewModel> categoryView = categories.Select(x => new CategoryViewModel {
                 Id = x.Id,
                 Name = x.Name,
-                Description = x.Description
+                Description = x.Description,
+                Photo = x.Photo
             }).ToList();
 
             return View(categoryView);

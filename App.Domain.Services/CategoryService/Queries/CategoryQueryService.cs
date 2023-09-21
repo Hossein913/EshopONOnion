@@ -19,15 +19,7 @@ namespace EShop.Domain.Services.CategoryService.Queries
         {
             var categores = await repository.GetAll();
 
-            List<CategoryOutputDto> categoryOutputDto = categores.Select(x => new CategoryOutputDto()
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Description = x.Description,
-                Image = x.Photo
-            }).ToList();
-
-            return categoryOutputDto;
+            return categores;
         }
     }
 }

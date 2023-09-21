@@ -20,16 +20,16 @@ namespace EShop.Areas.Admin.Controllers
     public class CategoryController : Controller
     {
         protected readonly ICategoryQueryService _categoryQueryService;
-        protected readonly ICategoriAppServices _categoriAppServices;
+        protected readonly ICategoryAppServices _categoryAppServices;
         private readonly IWebHostEnvironment _hostingEnvironment;
         public CategoryController(
             ICategoryQueryService categoryQueryService,
             ICategoryCommandService categoryCommandService,
             IWebHostEnvironment hostingEnvironment,
-            ICategoriAppServices categoriAppServices)
+            ICategoryAppServices categoryAppServices)
         {
             _categoryQueryService = categoryQueryService;
-            _categoriAppServices = categoriAppServices;
+            _categoryAppServices = categoryAppServices;
             _hostingEnvironment = hostingEnvironment;
 
         }
@@ -43,7 +43,7 @@ namespace EShop.Areas.Admin.Controllers
                 Id = x.Id,
                 Name = x.Name,
                 Description = x.Description,
-                Photo = x.Image,
+                Photo = x.Photo,
             }).ToList();
             return View(categoryList);
         }
@@ -72,19 +72,17 @@ namespace EShop.Areas.Admin.Controllers
 
                 CategoryAddDto categoryAddDto = new CategoryAddDto
                 {
-                     Name = Model.Name,
-                     Description = Model.Description
-
+                     Name = Model.Name!,
+                     Description = Model.Description!
                 };
 
-                await _categoriAppServices.CreateCategory(categoryAddDto, Model.PhotoFile, uploadPath);
-                return Ok();
+                await _categoryAppServices.CreateCategory(categoryAddDto, Model.PhotoFile, uploadPath);
+
+                return View();
             }
 
             return View(Model);
         }
-
-    }
 
         public ActionResult Edit(int id)
         {

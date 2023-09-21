@@ -13,6 +13,10 @@ namespace Eshop.Infra.Db_SqlServer.EF.Configuration
             builder.HasOne(pc => pc.Product)
                 .WithMany(pr => pr.Pictures)
                 .HasForeignKey(pc => pc.ProductId);
+
+            builder.HasOne(pc => pc.Category)
+                .WithOne(ct => ct.Picture)
+                .HasForeignKey<Picture>(pc => pc.CategoriId);
         }
     }
 }

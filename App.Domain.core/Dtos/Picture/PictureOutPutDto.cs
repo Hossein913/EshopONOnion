@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
 
-        public string? LinsAddress { get; set; }
+        public string? PictureLinkAddress { get; set; }
 
         public int? ProductId { get; set; }
     }

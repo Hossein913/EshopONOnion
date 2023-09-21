@@ -2,6 +2,10 @@
 using Eshop.Domain.core.AppService;
 using Eshop.Domain.core.DataAccess.EfRipository;
 using Eshop.Domain.core.Entities;
+using Eshop.Domain.core.IServices.FileService;
+using Eshop.Domain.core.IServices.PictureService.Commands;
+using Eshop.Domain.core.IServices.PictureService.Queries;
+using Eshop.Domain.Services.PictureService.Queries;
 using Eshop.Infra.Data.Repos.Ef;
 using Eshop.Infra.Db_SqlServer.EF;
 using EShop.Domain.AppServices.CategoryAppServce;
@@ -14,6 +18,8 @@ using EShop.Domain.IRepositories;
 using EShop.Domain.Services.CategoryService.Command;
 using EShop.Domain.Services.CategoryService.Queries;
 using EShop.Domain.Services.CustomerService.Command;
+using EShop.Domain.Services.File;
+using EShop.Domain.Services.PictureService.Commands;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -25,26 +31,53 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//------Add Repositores
-builder.Services.AddScoped<ICartRepository,CartRepository>();
+# region Injections
+
+# region Addmin
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
-builder.Services.AddScoped<IPictureRepository,PictureRepository>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<ICustomerRepository,CustomerRepository>();
-builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
+#endregion
+
+# region AppUser ----Role
 builder.Services.AddScoped<IUserManagerRepository, UserManagerRepository>();
+#endregion
 
-//------Add Services
+# region Cart
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+#endregion
+
+# region Category
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryQueryService, CategoryQueryService>();
-//builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
-builder.Services.AddScoped<ICategoryQueryService, CategoryQueryService>();
+builder.Services.AddScoped<ICategoryCommandService, CategoryCommandService>();
+builder.Services.AddScoped<ICategoryAppServices, CategoryAppServices>();
+#endregion
+
+# region Customer
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICustomerCommandService, CustomerCommandService>();
-builder.Services.AddScoped<ICategoryCommandService , CategoryCommandService>();
+#endregion
 
+# region File
+builder.Services.AddScoped<IFileServices, FileServices>();
+#endregion
 
-//------Add AppServices
+# region Order
+#endregion
+
+# region Picture
+builder.Services.AddScoped<IPictureRepository, PictureRepository>();
+builder.Services.AddScoped<IPictureQueryService, PictureQueryService>();
+builder.Services.AddScoped<IPictureCommandService, PictureCommandService>();
+#endregion
+
+# region Product
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductAppservices, ProductAppServices>();
-builder.Services.AddScoped<ICategoriAppServices, CategoryAppServices>();
+#endregion
+
+#endregion
+
+
 
 
 //--DbContext
@@ -52,9 +85,7 @@ builder.Services.AddDbContext<EshopContext>(option =>
 option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
-//builder.Services.AddDbContext<EshopContext>();
-
-//-- Identity
+# region Identity
 builder.Services.AddIdentity<AppUser,Role>()
 .AddEntityFrameworkStores<EshopContext>()
 .AddRoles<Role>();
@@ -74,8 +105,8 @@ builder.Services.Configure<IdentityOptions>(option =>
     option.Password.RequiredUniqueChars = 1;
 
     //Lokout Setting
-    //option.Lockout.MaxFailedAccessAttempts = 3;
-    //option.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMilliseconds(10);
+    option.Lockout.MaxFailedAccessAttempts = 3;
+    option.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMilliseconds(10);
 
     //SignIn Setting
     option.SignIn.RequireConfirmedAccount = false;
@@ -83,7 +114,6 @@ builder.Services.Configure<IdentityOptions>(option =>
     option.SignIn.RequireConfirmedPhoneNumber = false;
 
 });
-
 
 builder.Services.ConfigureApplicationCookie(option =>
 {
@@ -103,6 +133,7 @@ builder.Services.AddMvc(Option =>
 Option.Filters.Add(new AuthorizeFilter(policy));
 });
 
+#endregion
 
 var app = builder.Build();
 
@@ -114,17 +145,19 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+
 app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllerRoute(
 name: "Admin",
-pattern: "{area:exists}/{controller=Panel}/{action=Index}/{id?}"
-);
+pattern: "{area:exists}/{controller=Panel}/{action=Index}/{id?}");
 
-//-------- Area as default Route--------////
+
+////--------Area as default Route--------////
 //app.MapControllerRoute(
 //    name: "default",
 //    pattern: "{area=Admin}/{controller=Panel}/{action=Index}/{id?}");

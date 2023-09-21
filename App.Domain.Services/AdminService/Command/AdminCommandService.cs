@@ -1,6 +1,7 @@
 ﻿
 
-using Eshop.Domain.core.Dtos;
+
+using Eshop.Domain.core.Dtos.Admin;
 using EShop.Domain.core.IServices.AdminService.Command;
 
 namespace EShop.Domain.IServices.AdminService.Command

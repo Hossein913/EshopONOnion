@@ -3,11 +3,11 @@
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th scope="col">Employee Name</th>
-            <th scope="col">Disingnaton</th>
-            <th scope="col">Address</th>
-            <th scope="col">Created On</th>
-            <th></th>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Photo</th>
+            <th> Edite</th>
         </tr>
 
     </thead>
@@ -21,7 +21,7 @@
                 <td width="20%">@count</td>
                 <td width="20%">@item.Name</td>
                 <td width="20%">@item.Description</td>
-                <td width="25%">@item.Photo</td>
+                <td width="25%"><img src="../@item.Photo" width="60%" asp-append-version="true"></td>
                 <td>
                     <div class=" w-60 btn-group" role="group">
                         <a class="btn btn-sm btn-primary" asp-controller="Employee" asp-action="Edite" asp-route-id="@item.Id"><i class=" bi bi-pencil-square"></i>Edite</a>&nbsp;

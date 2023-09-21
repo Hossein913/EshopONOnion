@@ -1,5 +1,6 @@
 ﻿
 
+using Eshop.Domain.core.DataAccess.EfRipository;
 using Eshop.Domain.core.Dtos.Category;
 using EShop.Domain.core.IServices.CategoryService.Command;
 
@@ -7,14 +8,16 @@ namespace EShop.Domain.Services.CategoryService.Command
 {
     public class CategoryCommandService : ICategoryCommandService
     {
-        public Task<bool> AddPicture(int PictureId, int item)
+        protected readonly ICategoryRepository _categoryRepository;
+        public CategoryCommandService(ICategoryRepository categoryRepository)
         {
-            throw new NotImplementedException();
+            _categoryRepository = categoryRepository;
         }
 
-        public Task<bool> CreateCategory(CategoryAddDto category)
-        {
-            throw new NotImplementedException();
+        public async Task<int> CreateCategory(CategoryAddDto categoryAddDto)
+        { 
+           var categoryId = await _categoryRepository.Create(categoryAddDto);
+            return categoryId;
         }
 
         public Task<bool> DeleteCategory(int catrguryId)

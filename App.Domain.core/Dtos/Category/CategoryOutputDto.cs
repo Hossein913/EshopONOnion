@@ -12,7 +12,7 @@ namespace Eshop.Domain.core.Dtos.Category
 
         public string? Description { get; set; }
 
-        public string? Image { get; set; }
+        public string? Photo { get; set; }
     }
 }
 

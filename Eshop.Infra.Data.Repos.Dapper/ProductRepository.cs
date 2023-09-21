@@ -20,6 +20,7 @@ namespace Eshop.Infra.Data.Repos.Ef
         {
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
+
         }
 
         public async Task Delete(int productId)

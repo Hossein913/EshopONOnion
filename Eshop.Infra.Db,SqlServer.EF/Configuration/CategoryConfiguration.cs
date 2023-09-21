@@ -10,9 +10,7 @@ namespace Eshop.Infra.Db_SqlServer.EF.Configuration
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
-            builder.HasOne(ct => ct.Picture)
-            .WithOne(pc => pc.Category)
-            .HasForeignKey<Category>(ct => ct.PictureId);
+
 
         }
     }
