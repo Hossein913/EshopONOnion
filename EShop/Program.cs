@@ -86,9 +86,9 @@ option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection
 
 
 # region Identity
-builder.Services.AddIdentity<AppUser,Role>()
+builder.Services.AddIdentity<AppUser,AppRole>()
 .AddEntityFrameworkStores<EshopContext>()
-.AddRoles<Role>();
+.AddRoles<AppRole>();
 
 builder.Services.Configure<IdentityOptions>(option =>
 {

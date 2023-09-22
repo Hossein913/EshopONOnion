@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Eshop.Domain.core.Entities;
-using Eshop.Infra.Db_SqlServer.EF.Configuration;
+﻿
+
+using Eshop.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Eshop.Infra.Db_SqlServer.EF
+namespace Eshop.Infrastructure
 {
     public class EshopContext : IdentityDbContext<AppUser, AppRole, int>
     {

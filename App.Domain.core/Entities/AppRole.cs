@@ -2,7 +2,7 @@
 
 namespace Eshop.Domain.core.Entities;
 
-public class Role : IdentityRole<int>
+public class AppRole : IdentityRole<int>
 {
     public string Description { get; set; }
 }
