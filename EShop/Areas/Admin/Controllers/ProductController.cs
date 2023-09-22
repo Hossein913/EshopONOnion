@@ -1,4 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Eshop.Domain.core.AppService;
+using Eshop.Domain.core.Dtos.Category;
+using EShop.Domain.core.IServices.CategoryService.Command;
+using EShop.Domain.core.IServices.CategoryService.Queries;
+using EShop.ViewModels;
+using EShop.ViewModels.Category;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +14,15 @@ namespace EShop.Areas.Admin.Controllers
     [AllowAnonymous]
     public class ProductController : Controller
     {
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        public ProductController(
+            IWebHostEnvironment hostingEnvironment )
+        {
+            _hostingEnvironment = hostingEnvironment;
+        }
+
+
+
         public ActionResult Index()
         {
             return View();
@@ -25,8 +40,33 @@ namespace EShop.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(ProductViewModel Model)
         {
+
+            if (!ModelState.IsValid)
+                return View(Model);
+
+            if (Model.PhotoFile != null && Model.PhotoFile.Length > 0)
+            {
+                var wwwrootPath = _hostingEnvironment.WebRootPath;
+                var uploadPath = Path.Combine(wwwrootPath, "uploads");
+
+                CategoryAddDto categoryAddDto = new CategoryAddDto
+                {
+                    Name = Model.Name!,
+                    Description = Model.Description!
+                };
+
+                //await _categoryAppServices.CreateCategory(categoryAddDto, Model.PhotoFile, uploadPath);
+
+                return View();
+            }
+
+            return View(Model);
+
+
+
+
             try
             {
                 return RedirectToAction(nameof(Index));

@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EShop.Domain.AppServices\EShop.Domain.AppServices.csproj" />
+    <ProjectReference Include="..\Eshop.Infra.Data.Repos.Dapper\Eshop.Infra.Data.Repos.Ef.csproj" />
   </ItemGroup>
 
 </Project>

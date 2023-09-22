@@ -24,7 +24,6 @@ namespace EShop.Areas.Admin.Controllers
         private readonly IWebHostEnvironment _hostingEnvironment;
         public CategoryController(
             ICategoryQueryService categoryQueryService,
-            ICategoryCommandService categoryCommandService,
             IWebHostEnvironment hostingEnvironment,
             ICategoryAppServices categoryAppServices)
         {

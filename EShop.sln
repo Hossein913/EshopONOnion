@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShop", "EShop\EShop.csproj", "{0430E426-84D7-4E86-A96B-CD87566E09D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiEShop", "EShop\UiEShop.csproj", "{0430E426-84D7-4E86-A96B-CD87566E09D4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documnets", "Documnets", "{33094E5B-B24E-4297-B712-A957A3067D60}"
 	ProjectSection(SolutionItems) = preProject

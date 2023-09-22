@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using EShop.Domain.Services.CategoryService.Command;
 using Eshop.Domain.core.Dtos.Pictures;
 using Eshop.Domain.core.IServices.PictureService.Commands;
 

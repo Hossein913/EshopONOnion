@@ -1,10 +1,12 @@
 ﻿//using Mapster;
+using EShop.Domain.core.IServices.CategoryService.Queries;
+using EShop.Domain.Services.CategoryService.Queries;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace DapperCRUD.Data
+namespace UiEShop.TagHelpers
 {
     public class CurrentValues
     {
@@ -26,14 +28,16 @@ namespace DapperCRUD.Data
     public class CustomOptionTagHelper : TagHelper
     {
 
+        protected readonly ICategoryQueryService CategoryService;
         public CustomOptionTagHelper(
-            IHtmlGenerator generator
-            )
+            IHtmlGenerator generator ,
+            ICategoryQueryService categoryService)
         {
             Generator = generator;
+            CategoryService = categoryService;
         }
 
-        
+
         [HtmlAttributeName("asp-entity-name")]
         public string EntityName { get; set; }
 
@@ -70,7 +74,7 @@ namespace DapperCRUD.Data
             if (items == null) return;
 
             if (ShowDefaultItem)
-                output.Content.AppendHtml($"<option value=''>{ "انتخاب کنید"}</option>");
+                output.Content.AppendHtml($"<option value=''>{"Product Category"}</option>");
 
             foreach (var item in items)
             {
@@ -90,9 +94,8 @@ namespace DapperCRUD.Data
 
         private IEnumerable<SelectListItem> GetItems( )
         {
-            if (string.Equals(this.EntityName, "BankModel", StringComparison.OrdinalIgnoreCase))
-                //return _bankRepository.GetAllAsync().Result.Select(r => new SelectListItem() { Value = r.Id.ToString(), Text = r.Name });
-                return null;
+            if (string.Equals(this.EntityName, "Category", StringComparison.OrdinalIgnoreCase))
+                return CategoryService.GetAllCategory().Result.Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.Name });
             else
                 return null;
         }

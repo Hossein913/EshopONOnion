@@ -1,4 +1,6 @@
-﻿namespace EShop.ViewModels
+﻿using System.ComponentModel;
+
+namespace EShop.ViewModels
 {
     public class ProductViewModel
     {
@@ -8,6 +10,7 @@
 
         public decimal? Price { get; set; }
 
+        [DisplayName("Category")]
         public int CategoryId { get; set; }
 
         public int? Quntity { get; set; }

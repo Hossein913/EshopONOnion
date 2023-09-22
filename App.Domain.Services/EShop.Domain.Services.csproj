@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\App.Domain.core\Eshop.Domain.core.csproj" />
-    <ProjectReference Include="..\Eshop.Infra.Data.Repos.Dapper\Eshop.Infra.Data.Repos.Ef.csproj" />
   </ItemGroup>
 
 </Project>

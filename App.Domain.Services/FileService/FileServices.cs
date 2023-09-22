@@ -33,7 +33,7 @@ namespace EShop.Domain.Services.File
                 await file.CopyToAsync(stream);
             }
 
-            return filePath;
+            return "uploads/" + fileFullName;
         }
 
         public Task<bool> FileDeleteAsync()
