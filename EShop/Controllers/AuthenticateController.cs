@@ -1,16 +1,11 @@
-﻿using Eshop.Domain.core.DataAccess.EfRipository;
-using Eshop.Domain.core.Dtos.Admin;
-using Eshop.Domain.core.Dtos.Authenticate;
-using Eshop.Domain.core.Dtos.Customer;
-using Eshop.Domain.core.Entities;
-using Eshop.Infra.Data.Repos.Ef;
-using EShop.Domain.core.IServices.Authenticate;
+﻿
+
+using Eshop.Domain.Entities;
+using Eshop.Domain.Interfaces;
 using EShop.ViewModels.Authenticate;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading;
 
 namespace Eshop
 {
@@ -50,46 +45,46 @@ namespace Eshop
             try
             {
 
-                    UserRegisterDto registerUser = new UserRegisterDto
-                    {
-                        Email = registerModel.Email,
-                        Password = registerModel.Password,
-                        IsAdmin = registerModel.IsAdmin
-                    };
+                    //UserRegisterDto registerUser = new UserRegisterDto
+                    //{
+                    //    Email = registerModel.Email,
+                    //    Password = registerModel.Password,
+                    //    IsAdmin = registerModel.IsAdmin
+                    //};
 
-                    var UserId = await userRepository.Create(registerUser, cancellationToken);
+                    //var UserId = await userRepository.Create(registerUser, cancellationToken);
 
 
-                    if (UserId != 0 && registerModel.IsAdmin)
-                    {
+                    //if (UserId != 0 && registerModel.IsAdmin)
+                    //{
 
-                        AdminAddDto adminDto = new AdminAddDto
-                        {
-                            Id = UserId,
-                            FirstName = registerModel.FirstName,
-                            LastName = registerModel.LastName,
-                            Address = registerModel.Address
-                        };
-                        var Result = await adminRepository.Create(adminDto);
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else if (UserId != 0 && !registerModel.IsAdmin)
-                    {
-                        CustomerAddDto customerDto = new CustomerAddDto
-                        {
-                            Id = UserId,
-                            Name = registerModel.FirstName,
-                            LastName = registerModel.LastName,
-                            Address = registerModel.Address
-                        };
-                        var Result = await customerRepository.Create(customerDto);
-                         return RedirectToAction("Index", "Home");
+                    //    AdminAddDto adminDto = new AdminAddDto
+                    //    {
+                    //        Id = UserId,
+                    //        FirstName = registerModel.FirstName,
+                    //        LastName = registerModel.LastName,
+                    //        Address = registerModel.Address
+                    //    };
+                    //    var Result = await adminRepository.Create(adminDto);
+                    //    return RedirectToAction("Index", "Home");
+                    //}
+                    //else if (UserId != 0 && !registerModel.IsAdmin)
+                    //{
+                    //    CustomerAddDto customerDto = new CustomerAddDto
+                    //    {
+                    //        Id = UserId,
+                    //        Name = registerModel.FirstName,
+                    //        LastName = registerModel.LastName,
+                    //        Address = registerModel.Address
+                    //    };
+                    //    var Result = await customerRepository.Create(customerDto);
+                    //     return RedirectToAction("Index", "Home");
 
-                    }
-                    else
-                    {
-                        return View();
-                    }
+                    //}
+                    //else
+                    //{
+                    //    return View();
+                    //}
 
                      
                     
@@ -99,7 +94,8 @@ namespace Eshop
                 ModelState.AddModelError("", ex.Message);
                 return View();
             }
-            
+
+            return View(registerModel);
 
         }
 
@@ -117,37 +113,38 @@ namespace Eshop
             if (!ModelState.IsValid)
                 return View(LoginModel);
 
-            UserLoginDto userLogin = new UserLoginDto
-            {
-                Email = LoginModel.Email,
-                Password = LoginModel.Password,
-                IsPersistent = LoginModel.RememberMe
-            };
+            //UserLoginDto userLogin = new UserLoginDto
+            //{
+            //    Email = LoginModel.Email,
+            //    Password = LoginModel.Password,
+            //    IsPersistent = LoginModel.RememberMe
+            //};
 
-            var result = await userRepository.Login(userLogin, cancellationToken);
+            //var result = await userRepository.Login(userLogin, cancellationToken);
 
-            IList<string> roles = null;
-            if (result.Succeeded)
-            {
-                var user = await userManager.FindByNameAsync(userLogin.Email);
-                roles = await userManager.GetRolesAsync(user);
-            }
+            //IList<string> roles = null;
+            //if (result.Succeeded)
+            //{
+            //    var user = await userManager.FindByNameAsync(userLogin.Email);
+            //    roles = await userManager.GetRolesAsync(user);
+            //}
 
 
-            //var result = await authenticate.Login(LoginModel);
+            ////var result = await authenticate.Login(LoginModel);
 
-            if (result != null && roles.Contains("Admin"))
-            {
-                return RedirectToAction("index", "Panel", new { area = "Admin"});
-            }
-            else if (result != null && roles.Contains("Customer"))
-            {
-                return RedirectToAction("index", "Home");
-            }
-            else 
-            { 
-               return View(LoginModel);
-            }
+            //if (result != null && roles.Contains("Admin"))
+            //{
+            //    return RedirectToAction("index", "Panel", new { area = "Admin"});
+            //}
+            //else if (result != null && roles.Contains("Customer"))
+            //{
+            //    return RedirectToAction("index", "Home");
+            //}
+            //else 
+            //{ 
+            //   return View(LoginModel);
+            //}
+            return View(LoginModel);
 
         }
 

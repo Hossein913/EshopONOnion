@@ -1,6 +1,7 @@
 ﻿
 
 using Eshop.Domain.Entities;
+using Eshop.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

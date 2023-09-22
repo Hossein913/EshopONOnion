@@ -1,5 +1,9 @@
 ﻿
 
+using Eshop.Domain.Entities;
+using Eshop.Domain.Interfaces;
+using Microsoft.AspNetCore.Identity;
+
 namespace Eshop.Infrastructure.Repositories
 {
     public class UserManagerRepository : IUserManagerRepository
@@ -17,18 +21,18 @@ namespace Eshop.Infrastructure.Repositories
             this.signInManager = signInManager;
         }
 
-        public async Task<int> Create(UserRegisterDto command, CancellationToken cancellationToken)
+        public async Task<int> Create(AppUser command, CancellationToken cancellationToken)
         {
             var user = new AppUser { Email = command.Email, UserName = command.Email };
-            var result = await _userManager.CreateAsync(user, command.Password);
+            var result = await _userManager.CreateAsync(user, command.PasswordHash);
             if (result.Succeeded)
             {
                 AppRole role = new AppRole() { Name = "Customer", Description = "public registered Useres" };
 
-                if (command.IsAdmin)
-                {
-                    role = new AppRole() { Name = "Admin", Description = "Super Admin" };
-                }
+                //if (command)
+                //{
+                //    role = new AppRole() { Name = "Admin", Description = "Super Admin" };
+                //}
 
 
                 if (!await _RoleManager.RoleExistsAsync(role.Name))
@@ -44,10 +48,10 @@ namespace Eshop.Infrastructure.Repositories
 
         }
 
-        public async Task<SignInResult> Login(UserLoginDto command, CancellationToken cancellationToken)
+        public async Task<SignInResult> Login(AppUser command, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByNameAsync(command.Email);
-            var result = await signInManager.PasswordSignInAsync(user, command.Password, false, true);
+            var result = await signInManager.PasswordSignInAsync(user, command.PasswordHash, false, true);
             return result;
         }
     }

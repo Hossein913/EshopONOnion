@@ -1,8 +1,4 @@
-﻿using Eshop.Domain.core.AppService;
-using Eshop.Domain.core.Dtos.Category;
-using EShop.Domain.core.IServices.CategoryService.Command;
-using EShop.Domain.core.IServices.CategoryService.Queries;
-using EShop.ViewModels;
+﻿using EShop.ViewModels;
 using EShop.ViewModels.Category;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -43,24 +39,24 @@ namespace EShop.Areas.Admin.Controllers
         public ActionResult Create(ProductViewModel Model)
         {
 
-            if (!ModelState.IsValid)
-                return View(Model);
+            //if (!ModelState.IsValid)
+            //    return View(Model);
 
-            if (Model.PhotoFile != null && Model.PhotoFile.Length > 0)
-            {
-                var wwwrootPath = _hostingEnvironment.WebRootPath;
-                var uploadPath = Path.Combine(wwwrootPath, "uploads");
+            //if (Model.PhotoFile != null && Model.PhotoFile.Length > 0)
+            //{
+            //    var wwwrootPath = _hostingEnvironment.WebRootPath;
+            //    var uploadPath = Path.Combine(wwwrootPath, "uploads");
 
-                CategoryAddDto categoryAddDto = new CategoryAddDto
-                {
-                    Name = Model.Name!,
-                    Description = Model.Description!
-                };
+            //    CategoryAddDto categoryAddDto = new CategoryAddDto
+            //    {
+            //        Name = Model.Name!,
+            //        Description = Model.Description!
+            //    };
 
-                //await _categoryAppServices.CreateCategory(categoryAddDto, Model.PhotoFile, uploadPath);
+            //    //await _categoryAppServices.CreateCategory(categoryAddDto, Model.PhotoFile, uploadPath);
 
-                return View();
-            }
+            //    return View();
+            //}
 
             return View(Model);
 

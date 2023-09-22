@@ -8,7 +8,8 @@ namespace Eshop.Infrastructure.Repositories
 {
     public class AdminRepository : Repository<Admin>, IAdminRepository
     {
-        protected AdminRepository(DbContext dbContext) : base(dbContext)
+        private readonly IQueryable _queryable;
+        public AdminRepository(EshopContext dbContext) : base(dbContext)
         {
         }
     }

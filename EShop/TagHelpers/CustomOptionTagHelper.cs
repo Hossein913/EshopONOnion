@@ -1,6 +1,5 @@
 ﻿//using Mapster;
-using EShop.Domain.core.IServices.CategoryService.Queries;
-using EShop.Domain.Services.CategoryService.Queries;
+
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -28,13 +27,11 @@ namespace UiEShop.TagHelpers
     public class CustomOptionTagHelper : TagHelper
     {
 
-        protected readonly ICategoryQueryService CategoryService;
         public CustomOptionTagHelper(
-            IHtmlGenerator generator ,
-            ICategoryQueryService categoryService)
+            IHtmlGenerator generator
+            )
         {
             Generator = generator;
-            CategoryService = categoryService;
         }
 
 
@@ -94,9 +91,9 @@ namespace UiEShop.TagHelpers
 
         private IEnumerable<SelectListItem> GetItems( )
         {
-            if (string.Equals(this.EntityName, "Category", StringComparison.OrdinalIgnoreCase))
-                return CategoryService.GetAllCategory().Result.Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.Name });
-            else
+            //if (string.Equals(this.EntityName, "Category", StringComparison.OrdinalIgnoreCase))
+            //    return CategoryService.GetAllCategory().Result.Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.Name });
+            //else
                 return null;
         }
     }

@@ -1,10 +1,4 @@
-﻿using Eshop.Domain.core.AppService;
-using Eshop.Domain.core.Dtos.Category;
-using Eshop.Domain.core.Entities;
-using Eshop.Domain.core.IServices.FileService;
-using EShop.Domain.AppServices.CategoryAppServce;
-using EShop.Domain.core.IServices.CategoryService.Command;
-using EShop.Domain.core.IServices.CategoryService.Queries;
+﻿
 using EShop.ViewModels.Category;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -19,32 +13,33 @@ namespace EShop.Areas.Admin.Controllers
     [AllowAnonymous]
     public class CategoryController : Controller
     {
-        protected readonly ICategoryQueryService _categoryQueryService;
-        protected readonly ICategoryAppServices _categoryAppServices;
-        private readonly IWebHostEnvironment _hostingEnvironment;
-        public CategoryController(
-            ICategoryQueryService categoryQueryService,
-            IWebHostEnvironment hostingEnvironment,
-            ICategoryAppServices categoryAppServices)
-        {
-            _categoryQueryService = categoryQueryService;
-            _categoryAppServices = categoryAppServices;
-            _hostingEnvironment = hostingEnvironment;
+        //protected readonly ICategoryQueryService _categoryQueryService;
+        //protected readonly ICategoryAppServices _categoryAppServices;
+        //private readonly IWebHostEnvironment _hostingEnvironment;
+        //public CategoryController(
+        //    ICategoryQueryService categoryQueryService,
+        //    IWebHostEnvironment hostingEnvironment,
+        //    ICategoryAppServices categoryAppServices)
+        //{
+        //    _categoryQueryService = categoryQueryService;
+        //    _categoryAppServices = categoryAppServices;
+        //    _hostingEnvironment = hostingEnvironment;
 
-        }
+        //}
 
 
         public async  Task<ActionResult> Index()
         {
-            var categories = await _categoryQueryService.GetAllCategory();
-            List<CategoryViewModel> categoryList = categories.Select(x => new CategoryViewModel
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Description = x.Description,
-                Photo = x.Photo,
-            }).ToList();
-            return View(categoryList);
+            return View();
+            //var categories = await _categoryQueryService.GetAllCategory();
+            //List<CategoryViewModel> categoryList = categories.Select(x => new CategoryViewModel
+            //{
+            //    Id = x.Id,
+            //    Name = x.Name,
+            //    Description = x.Description,
+            //    Photo = x.Photo,
+            //}).ToList();
+            //return View(categoryList);
         }
 
         public ActionResult Details(int id)
@@ -61,26 +56,27 @@ namespace EShop.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CategoryViewModel Model)
         {
-            if(!ModelState.IsValid)
-                return  View(Model);
+            return View();
+            //if(!ModelState.IsValid)
+            //    return  View(Model);
 
-            if (Model.PhotoFile != null && Model.PhotoFile.Length > 0)
-            {
-                var wwwrootPath = _hostingEnvironment.WebRootPath;
-                var uploadPath = Path.Combine(wwwrootPath, "uploads");
+            //if (Model.PhotoFile != null && Model.PhotoFile.Length > 0)
+            //{
+            //    var wwwrootPath = _hostingEnvironment.WebRootPath;
+            //    var uploadPath = Path.Combine(wwwrootPath, "uploads");
 
-                CategoryAddDto categoryAddDto = new CategoryAddDto
-                {
-                     Name = Model.Name!,
-                     Description = Model.Description!
-                };
+            //    CategoryAddDto categoryAddDto = new CategoryAddDto
+            //    {
+            //         Name = Model.Name!,
+            //         Description = Model.Description!
+            //    };
 
-                await _categoryAppServices.CreateCategory(categoryAddDto, Model.PhotoFile, uploadPath);
+            //    await _categoryAppServices.CreateCategory(categoryAddDto, Model.PhotoFile, uploadPath);
 
-                return View();
-            }
+            //    return View();
+            //}
 
-            return View(Model);
+            //return View(Model);
         }
 
         public ActionResult Edit(int id)

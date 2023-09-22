@@ -1,4 +1,4 @@
-﻿using EShop.Domain.core.IServices.CategoryService.Queries;
+﻿
 using EShop.ViewModels.Category;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,26 +9,25 @@ namespace EShop.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ICategoryQueryService _service;
 
 
-        public HomeController(ILogger<HomeController> logger, ICategoryQueryService service )
+
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _service = service;
         }
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var categories = await _service.GetAllCategory();
-            List<CategoryViewModel> categoryView = categories.Select(x => new CategoryViewModel {
-                Id = x.Id,
-                Name = x.Name,
-                Description = x.Description,
-                Photo = x.Photo
-            }).ToList();
+            //var categories = await _service.GetAllCategory();
+            //List<CategoryViewModel> categoryView = categories.Select(x => new CategoryViewModel {
+            //    Id = x.Id,
+            //    Name = x.Name,
+            //    Description = x.Description,
+            //    Photo = x.Photo
+            //}).ToList();
 
-            return View(categoryView);
+            return View();
 
 
         }
